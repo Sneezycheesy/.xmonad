@@ -1,0 +1,24 @@
+#!/usr/bin/bash
+if [[ $1 == get ]]; then
+	while read volume; do
+		echo "${volume}%";
+	done < $2.source-volume
+elif [[ $1 == set ]]; then
+	while read value; do
+		if [[ $2 == + ]]; then
+			if [[ $value -lt 100 ]]; then
+				let "value+=1";
+				initial_volume=${value};
+				pactl set-source-volume @DEFAULT_SOURCE@ +1%;
+			fi
+		else
+			if [[ $value -gt 0 ]]; then
+				let "value-=1";
+				initial_volume=${value};
+				pactl set-source-volume @DEFAULT_SOURCE@ -1%;
+			fi
+		fi
+	done < $3.source-volume
+
+	echo ${initial_volume} > $3.source-volume;
+fi

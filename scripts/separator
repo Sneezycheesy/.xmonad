@@ -1,0 +1,2 @@
+#!/usr/bin/bash
+echo -e "\e[37m|\e[0m";

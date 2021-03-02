@@ -1,0 +1,66 @@
+-- http://projects.haskell.org/xmobar/
+-- install xmobar with these flags: --flags="with_alsa" --flags="with_mpd" --flags="with_xft"  OR --flags="all_extensions"
+-- you can find weather location codes here: http://weather.noaa.gov/index.html
+Config { font    = "Share Tech Mono:pixelsize=11:antialias=true:hinting=true"
+       , additionalFonts = [ "xft:Mononoki Nerd Font:pixelsize=13:antialias=true:hinting=true"
+                           , "xft:Mononoki Nerd Font:pixelsize=16:antialias=true:hinting=true"
+                           , "xft:FontAwesome:style=Regular:size=8"
+                           ]
+       , bgColor = "#0c1628"
+       , fgColor = "#0c1628"
+       , position = Top
+       -- , border = BottomB
+       , iconRoot = "/home/joshii/.xmonad/xpm/"
+       , lowerOnStart = False
+       , hideOnStart = False
+       , overrideRedirect = True
+       , pickBroadest = False
+       , allDesktops = True
+       , persistent = True
+       , commands = [ 
+                      -- Time and date
+                      Run DateZone "<fc=#fff><icon=calendar/calendar_%d.xpm/> %T</fc> <fc=#46d9ff>(%A, %d %b %Y)</fc>" "nl_NL.utf8" "Europe/Amsterdam" "date" 10
+                      -- Network up and down
+                    , Run Network "enp3s0" ["-t", "<fc=#fff><fn=3>\xf0ab </fn></fc> <rx>kb  <fc=#ffffff><fn=3>\xf0aa </fn></fc> <tx>kb"] 10
+                    , Run DynNetwork ["-t", "<icon=net_down.xpm/> <fc=#98be65><rx>kb</fc> <icon=net_up.xpm/> <fc=#98be65><tx>kb</fc>"] 50
+                      -- Cpu usage in percent
+                    , Run Cpu ["-t", " <fc=#fff><fn=3>\xf108  </fn></fc><fc=#ecbe7b><total>%</fc>","-H","50","--high","darkred"] 20
+                      -- Ram used number and percent
+                    , Run Memory ["-t", "<fc=#fff><fn=1>\xf85a </fn></fc><fc=#ff6c6b><used>M (<usedratio>%)</fc>"] 20
+                      -- Disk space free
+                    , Run DiskU [("/", "<fc=#fff><fn=3>\xf0c7 </fn></fc><fc=#51afef> <free> free</fc>")] [] 60
+                      -- Runs custom script to check for pacman updates.
+                      -- This script is in my dotfiles repo in .local/bin.
+                    -- , Run Com "/home/dt/.local/bin/pacupdate" [] "pacupdate" 36000
+                      -- Runs a standard shell command 'uname -r' to get kernel version
+                    , Run Com "/home/joshii/.xmonad/scripts/pacupdate.sh" [] "pacupdate" 1800
+                    , Run Com "/home/joshii/.xmonad/scripts/kernel.sh" [] "uname" 3600
+                    , Run Com "/home/joshii/.xmonad/scripts/source_mute.sh" ["get"] "source_mute" 10
+                    , Run Com "/home/joshii/.xmonad/scripts/sink_mute.sh" ["get"] "sink_mute" 10
+                    , Run Com "/home/joshii/.xmonad/scripts/sink_volume.sh" ["get"] "sink_volume" 1
+                    , Run Com "/home/joshii/.xmonad/scripts/source_volume" ["get", "/home/joshii/.xmonad/scripts/"] "source_volume" 1
+                    , Run Com "/home/joshii/.xmonad/scripts/separator" [] "sep" 0
+                      -- Prints out the left side items such as workspaces, layout, etc.
+                      -- The workspaces are 'clickable' in my configs.
+                      -- battery monitor
+                    , Run Battery        [ "--template" , "<fc=#fff></fc><acstatus>"
+                                        , "--Low"      , "30"        -- units: %
+                                        , "--High"     , "80"        -- units: %
+                                        , "--low"      , "darkred"
+                                       -- , "--normal"   , "darkorange"
+                                       -- , "--high"     , "darkgreen"
+
+                                        , "--" -- battery specific options
+                                                  -- discharging status
+                                                  , "-o"	, "<icon=battery.xpm/><fc=#dd42f5><left>% (<timeleft>)</fc>"
+                                                  -- AC "on" status
+                                                  , "-O"	, "<fc=#dd42f5>Charging</fc>"
+                                                  -- charged status
+                                                  , "-i"	, "<fc=#dd42f5><icon=battery_charged.xpm/></fc>"
+                                        ] 50
+                    , Run StdinReader
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = "%StdinReader% }{ <fc=#b3afc2>Kernel %uname%</fc> <fc=#666666><fn=2>|</fn></fc> <fc=#1d7208>%pacupdate%</fc> <fc=#666666><fn=2>|</fn></fc> %cpu% <fc=#666666><fn=2>|</fn></fc> %memory% <fc=#666666><fn=2>|</fn></fc> %disku% <fc=#666666><fn=2>|</fn></fc> %dynnetwork% <fc=#666666><fn=2>|</fn></fc> %battery% <fc=#666666><fn=2>|</fn></fc> <fc=#d6ae11>%source_volume%</fc> <icon=%source_mute%/> <icon=%sink_mute%/> <fc=#d6ae11>%sink_volume%</fc> <fc=#666666><fn=2>|</fn></fc> %date% "
+       }
