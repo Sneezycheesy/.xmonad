@@ -157,7 +157,7 @@ myRootMask =
     .|. buttonPressMask
 
 userDir :: [Char]
-userDir = "/home/joshii/"
+userDir = "$HOME/"
 
 xmonadDir :: [Char]
 xmonadDir = ".xmonad/"
