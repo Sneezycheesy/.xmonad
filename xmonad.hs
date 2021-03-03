@@ -232,7 +232,7 @@ myKeys conf@XConfig {XMonad.modMask = modm} =
       ((mod4Mask, xF86XK_AudioRaiseVolume), spawn $ scriptDir ++ "source_volume set + " ++ scriptDir),
       -- Control play/pause/next/prev
       -- Global
-      ((0, xF86XK_AudioPlay), spawn "playerctl -a -i firefox,google-chrome play-pause"),
+      ((0, xF86XK_AudioPlay), spawn "playerctl -a -i firefox,google-chrome,qutebrowser play-pause"),
       ((0, xF86XK_AudioStop), spawn "playerctl stop"),
       ((0, xF86XK_AudioNext), spawn "playerctl next"),
       ((0, xF86XK_AudioPrev), spawn "playerctl previous"),
