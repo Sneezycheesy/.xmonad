@@ -6,14 +6,14 @@ if [[ $1 == get ]]; then
 		else
 			echo "source_muted.xpm";
 		fi
-	done < $HOME/.wm/.muted;
+	done < $HOME/.xmonad/scripts/.muted;
 elif [[ $1 == toggle ]]; then
 	while read muted; do
 		if [ ${muted} == 0 ]; then
-			echo 1 > $HOME/.wm/.muted
-		else echo 0 > $HOME/.wm/.muted
+			echo 1 > $HOME/.xmonad/scripts/.muted
+		else echo 0 > $HOME/.xmonad/scripts/.muted
 		fi
-	done < $HOME/.wm/.muted
+	done < $HOME/.xmonad/scripts/.muted
 
 	pactl set-source-mute @DEFAULT_SOURCE@ toggle;
 fi
