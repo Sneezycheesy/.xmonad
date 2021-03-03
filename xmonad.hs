@@ -259,7 +259,7 @@ myKeys conf@XConfig {XMonad.modMask = modm} =
       -- Restart xmonad
       ((modm, xK_KP_Subtract), spawn "xmonad --recompile; xmonad --restart"),
       -- APPLICATIONS
-      ((mod4Mask, xK_a), spawn "audacious"),
+      ((mod4Mask, xK_a), spawn "kitty -e cmus"),
       ((mod4Mask, xK_b), spawn "blueman-manager"),
       ((mod4Mask, xK_c), spawn "code"),
       ((mod4Mask, xK_d), spawn "discord"),
@@ -507,6 +507,7 @@ myManageHook =
       -- , className =? "firefox"                    --> doShift "4: Media"
       className =? "audacious" --> doShift "9: Media",
       className =? "Audacious" --> doShift "9: Media",
+      className =? "kitty" <&&> resource =? "cmus v2.8.0" --> doShift "9: Media",
       className =? "mpv" --> doShift "9: Media",
       className =? "whatsapp-nativefier-d52542" --> doShift "12: What",
       className =? "lxterminal" --> doShift "12: What",
