@@ -37,8 +37,8 @@ Config { font    = "Share Tech Mono:pixelsize=11:antialias=true:hinting=true"
                     , Run Alsa "default" "Capture" ["-t", "<fn=1><status></fn><fc=#d6ae11><volume>% </fc>", "--", "-O", "\xf130 ", "-o", "\xf131 ", "-C", "#FFF"]
                       
                     -- Run music player daemon
-                    , Run Mpris2 "audacious" ["-t", "<fc=#FFF><fn=1>\xf001 </fn></fc> <artist> - <title>"] 30
-                      
+                    , Run Mpris2 "audacious" ["-t", "</fc> <artist> - <title>"] 30
+                    , Run MPD ["-t", "<statei>", "--", "-S", "<fc=#FFF><fn=1>\xf001 </fn>"] 30
                       -- Runs custom script to check for pacman updates.
                       -- This script is in my dotfiles repo in .local/bin.
                     -- , Run Com "/home/dt/.local/bin/pacupdate" [] "pacupdate" 36000
@@ -64,5 +64,5 @@ Config { font    = "Share Tech Mono:pixelsize=11:antialias=true:hinting=true"
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% }{ <fc=#b3afc2>%mpris2%</fc> <fc=#666666><fn=2>|</fn></fc> %cpu% <fc=#666666><fn=2>|</fn></fc> %memory% <fc=#666666><fn=2>|</fn></fc> %disku% <fc=#666666><fn=2>|</fn></fc> %dynnetwork% <fc=#666666><fn=2>|</fn></fc> %battery%<fc=#666666><fn=2>|</fn>%alsa:default:Capture% %alsa:default:Master% </fc><fc=#666666><fn=2>|</fn></fc> %date% "
+       , template = "%StdinReader% }{ <fc=#b3afc2>%mpd%%mpris2%</fc> <fc=#666666><fn=2>|</fn></fc> %cpu% <fc=#666666><fn=2>|</fn></fc> %memory% <fc=#666666><fn=2>|</fn></fc> %disku% <fc=#666666><fn=2>|</fn></fc> %dynnetwork% <fc=#666666><fn=2>|</fn></fc> %battery%<fc=#666666><fn=2>|</fn>%alsa:default:Capture% %alsa:default:Master% </fc><fc=#666666><fn=2>|</fn></fc> %date% "
        }
