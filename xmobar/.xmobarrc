@@ -38,7 +38,7 @@ Config { font    = "Share Tech Mono:pixelsize=11:antialias=true:hinting=true"
                       
                     -- Run music player daemon
                     , Run Mpris2 "audacious" ["-t", "</fc> <artist> - <title>"] 30
-                    , Run MPD ["-t", "<statei>", "--", "-S", "<fc=#FFF><fn=1>\xf001 </fn>"] 30
+                    , Run MPD ["-t", "<statei>", "--", "-S", "<fc=#FFF><fn=1>\xf001 </fn>"] 0
                       -- Runs custom script to check for pacman updates.
                       -- This script is in my dotfiles repo in .local/bin.
                     -- , Run Com "/home/dt/.local/bin/pacupdate" [] "pacupdate" 36000
