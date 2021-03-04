@@ -54,7 +54,7 @@ Config { font    = "Share Tech Mono:pixelsize=11:antialias=true:hinting=true"
                     , Run Battery        [ "--template" , "<fc=#fff><fn=2><acstatus></fn></fc>"
                                         , "--" -- battery specific options
                                                   -- discharging status
-                                                  , "-o"	, "\xf243  <left>% (<timeleft>)"
+                                                  , "-o"	, "\xf243  <fn=0><left>% (<timeleft>)</fn>"
                                                   -- AC "on" status
                                                   , "-O"	, "\xf241  "
                                                   -- charged status
