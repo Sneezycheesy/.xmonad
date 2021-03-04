@@ -16,19 +16,29 @@ Config { font    = "Share Tech Mono:pixelsize=11:antialias=true:hinting=true"
        , overrideRedirect = True
        , pickBroadest = False
        , allDesktops = True
-       , persistent = True
+       , persistent = False
        , commands = [ 
                       -- Time and date
-                      Run DateZone "<fc=#fff><icon=calendar/calendar_%d.xpm/> %T</fc> <fc=#46d9ff>(%A, %d %b %Y)</fc>" "nl_NL.utf8" "Europe/Amsterdam" "date" 10
+                      Run DateZone "<fc=#fff><fn=1>\xf073 </fn> %T</fc> <fc=#46d9ff>(%A, %d %b %Y)</fc>" "nl_NL.utf8" "Europe/Amsterdam" "date" 10
                       -- Network up and down
                     , Run Network "enp3s0" ["-t", "<fc=#fff><fn=3>\xf0ab </fn></fc> <rx>kb  <fc=#ffffff><fn=3>\xf0aa </fn></fc> <tx>kb"] 10
-                    , Run DynNetwork ["-t", "<icon=net_down.xpm/> <fc=#98be65><rx>kb</fc> <icon=net_up.xpm/> <fc=#98be65><tx>kb</fc>"] 50
+                    , Run DynNetwork ["-t", "<fc=#fff><fn=2>\xf103</fn></fc> <fc=#98be65><rx>kb</fc> <fc=#fff><fn=2>\xf102</fn></fc> <fc=#98be65><tx>kb</fc>"] 50
                       -- Cpu usage in percent
-                    , Run Cpu ["-t", " <fc=#fff><fn=3>\xf108  </fn></fc><fc=#ecbe7b><total>%</fc>","-H","50","--high","darkred"] 20
+                    , Run Cpu ["-t", " <fc=#fff><fn=1>\xf108  </fn></fc><fc=#ecbe7b><total>%</fc>","-H","50","--high","darkred"] 20
                       -- Ram used number and percent
-                    , Run Memory ["-t", "<fc=#fff><fn=1>\xf85a </fn></fc><fc=#ff6c6b><used>M (<usedratio>%)</fc>"] 20
+                    , Run Memory ["-t", "<fc=#fff><fn=1>\xe799 </fn></fc> <fc=#ff6c6b><used>M (<usedratio>%)</fc>"] 20
                       -- Disk space free
-                    , Run DiskU [("/", "<fc=#fff><fn=3>\xf0c7 </fn></fc><fc=#51afef> <free> free</fc>")] [] 60
+                    , Run DiskU [("/", "<fc=#fff><fn=1>\xf0c7 </fn></fc><fc=#51afef> <free> free</fc>")] [] 60
+
+                    -- Alsa for SINK VOLUME (speaker/headphones)
+                    , Run Alsa "default" "Master" ["-t", "<fn=2><status></fn><fc=#d6ae11><volume>%</fc>", "--", "-O", "", "-o", "\xfc5d ", "-h", "\xfa7d ", "-m", "\xfa7f ", "-l", "\xfa7e ", "-L", "12", "-C", "#FFF"]
+
+                    -- ALSA for SOURCE VOLUME (Mic)
+                    , Run Alsa "default" "Capture" ["-t", "<fn=1><status></fn><fc=#d6ae11><volume>% </fc>", "--", "-O", "\xf130 ", "-o", "\xf131 ", "-C", "#FFF"]
+                      
+                    -- Run music player daemon
+                    , Run Mpris2 "cmus" ["-t", "<fc=#FFF><fn=1>\xf001 </fn></fc> <artist> - <title>"] 30
+                      
                       -- Runs custom script to check for pacman updates.
                       -- This script is in my dotfiles repo in .local/bin.
                     -- , Run Com "/home/dt/.local/bin/pacupdate" [] "pacupdate" 36000
@@ -37,30 +47,22 @@ Config { font    = "Share Tech Mono:pixelsize=11:antialias=true:hinting=true"
                     , Run Com "/home/joshii/.xmonad/scripts/kernel.sh" [] "uname" 3600
                     , Run Com "/home/joshii/.xmonad/scripts/source_mute.sh" ["get"] "source_mute" 10
                     , Run Com "/home/joshii/.xmonad/scripts/sink_mute.sh" ["get"] "sink_mute" 10
-                    , Run Com "/home/joshii/.xmonad/scripts/sink_volume.sh" ["get"] "sink_volume" 1
-                    , Run Com "/home/joshii/.xmonad/scripts/source_volume" ["get", "/home/joshii/.xmonad/scripts/"] "source_volume" 1
                     , Run Com "/home/joshii/.xmonad/scripts/separator" [] "sep" 0
                       -- Prints out the left side items such as workspaces, layout, etc.
                       -- The workspaces are 'clickable' in my configs.
                       -- battery monitor
-                    , Run Battery        [ "--template" , "<fc=#fff></fc><acstatus>"
-                                        , "--Low"      , "30"        -- units: %
-                                        , "--High"     , "80"        -- units: %
-                                        , "--low"      , "darkred"
-                                       -- , "--normal"   , "darkorange"
-                                       -- , "--high"     , "darkgreen"
-
+                    , Run Battery        [ "--template" , "<fc=#fff><fn=2><acstatus></fn></fc>"
                                         , "--" -- battery specific options
                                                   -- discharging status
-                                                  , "-o"	, "<icon=battery.xpm/><fc=#dd42f5><left>% (<timeleft>)</fc>"
+                                                  , "-o"	, "\xf57f <left>% (<timeleft>)"
                                                   -- AC "on" status
-                                                  , "-O"	, "<fc=#dd42f5>Charging</fc>"
+                                                  , "-O"	, "\xf587 "
                                                   -- charged status
-                                                  , "-i"	, "<fc=#dd42f5><icon=battery_charged.xpm/></fc>"
+                                                  , "-i"	, "\xf584 "
                                         ] 50
                     , Run StdinReader
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% }{ <fc=#b3afc2>Kernel %uname%</fc> <fc=#666666><fn=2>|</fn></fc> <fc=#1d7208>%pacupdate%</fc> <fc=#666666><fn=2>|</fn></fc> %cpu% <fc=#666666><fn=2>|</fn></fc> %memory% <fc=#666666><fn=2>|</fn></fc> %disku% <fc=#666666><fn=2>|</fn></fc> %dynnetwork% <fc=#666666><fn=2>|</fn></fc> %battery% <fc=#666666><fn=2>|</fn></fc> <fc=#d6ae11>%source_volume%</fc> <icon=%source_mute%/> <icon=%sink_mute%/> <fc=#d6ae11>%sink_volume%</fc> <fc=#666666><fn=2>|</fn></fc> %date% "
+       , template = "%StdinReader% }{ <fc=#b3afc2>%mpris2%</fc> <fc=#666666><fn=2>|</fn></fc> %cpu% <fc=#666666><fn=2>|</fn></fc> %memory% <fc=#666666><fn=2>|</fn></fc> %disku% <fc=#666666><fn=2>|</fn></fc> %dynnetwork% <fc=#666666><fn=2>|</fn></fc> %battery% <fc=#666666><fn=2>|</fn>%alsa:default:Capture% %alsa:default:Master% </fc><fc=#666666><fn=2>|</fn></fc> %date% "
        }

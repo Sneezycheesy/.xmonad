@@ -243,11 +243,11 @@ myKeys conf@XConfig {XMonad.modMask = modm} =
       ((controlMask, xF86XK_AudioPrev), spawn "if [ -e \"/tmp/mpvsocket\" ]; then echo '{ \"command\": [\"playlist-prev\"] }' | socat - /tmp/mpvsocket; echo '{ \"command\": [\"set_property\", \"pause\", false] }' | socat - /tmp/mpvsocket; fi"),
       ((controlMask, xF86XK_AudioMute), spawn "if [ -e \"/tmp/mpvsocket\" ]; then echo '{ \"command\": [\"cycle\", \"mute\"] }' | socat - /tmp/mpvsocket; fi"),
       -- Change Audio in- and outputs
-      ((mod4Mask, xK_1), spawn "pactl set-default-sink \"alsa_output.pci-0000_00_14.2.analog-stereo\""), -- Speakers (Analog port)
-      ((mod4Mask, xK_2), spawn "pactl set-default-sink \"alsa_output.usb-Logitech_PRO_X_000000000000-00.analog-stereo\""), -- Headset (USB device)
+      ((mod4Mask, xK_1), spawn "pactl set-default-sink \"alsa_output.pci-0000_00_14.2.analog-stereo\" && xmonad --restart"), -- Speakers (Analog port)
+      ((mod4Mask, xK_2), spawn "pactl set-default-sink \"alsa_output.usb-Logitech_PRO_X_000000000000-00.analog-stereo\" && xmonad --restart"), -- Headset (USB device)
       ((mod4Mask, xK_3), spawn "sh /usr/share/scripts/bluetooth.sh"), -- Bluetooth device (whichever is connected, not tested on multiple connections)
-      ((mod4Mask .|. controlMask, xK_1), spawn "pactl set-default-source \"alsa_input.usb-Logitech_PRO_X_000000000000-00.mono-fallback\""), -- Input headset (USB device)
-      ((mod4Mask .|. controlMask, xK_2), spawn "pactl set-default-source \"alsa_input.usb-OmniVision_Technologies__Inc._USB_Camera-B4.09.24.1-01.multichannel-input\""), -- Input webcam (USB device)
+      ((mod4Mask .|. controlMask, xK_1), spawn "pactl set-default-source \"alsa_input.usb-Logitech_PRO_X_000000000000-00.multichannel-input\" && xmonad --restart"), -- Input headset (USB device)
+      ((mod4Mask .|. controlMask, xK_2), spawn "pactl set-default-source \"alsa_input.usb-OmniVision_Technologies__Inc._USB_Camera-B4.09.24.1-01.multichannel-input\" && xmonad --restart"), -- Input webcam (USB device)
 
       -- SYSTEMTRAY FOR NETWORK STATUS
       ((modm .|. controlMask, xK_s), spawn $ "sh " ++ scriptDir ++ "stalonetray.sh"),
@@ -523,7 +523,7 @@ myManageHook =
       className =? "steam" --> doShift "11: Misc", -- Steam
 
       -- Start floating windows for finer behaviour
-      className =? "mpv" --> doFloat,
+      -- className =? "mpv" --> doFloat,
       className =? "wpsoffice" --> doFloat,
       className =? "lxterminal" --> doFloat,
       className =? "Lxterminal" --> doFloat,
@@ -607,9 +607,9 @@ toggleStrutsKey XConfig {XMonad.modMask = modMask} = (modMask, xK_b)
 --
 
 main = do
-  xmproc0 <- spawnPipe $ "/usr/bin/xmobar -f with_utf8 -x 0 " ++ xmobarDir ++ ".xmobarrc"
-  xmproc1 <- spawnPipe $ "/usr/bin/xmobar -f with_utf8 -x 1 " ++ xmobarDir ++ ".xmobarrc"
-  xmproc2 <- spawnPipe $ "/usr/bin/xmobar -f with_utf8 -x 2 " ++ xmobarDir ++ ".xmobarrc"
+  xmproc0 <- spawnPipe $ "/usr/bin/xmobar -f with_alsa -n xmonad -x 0 " ++ xmobarDir ++ ".xmobarrc"
+  xmproc1 <- spawnPipe $ "/usr/bin/xmobar -f with_alsa -n xmonad -x 1 " ++ xmobarDir ++ ".xmobarrc"
+  xmproc2 <- spawnPipe $ "/usr/bin/xmobar -f with_alsa -n xmonad -x 2 " ++ xmobarDir ++ ".xmobarrc"
   xmonad $
     docks $
       defaults
