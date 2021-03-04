@@ -26,7 +26,7 @@ Config { font    = "Share Tech Mono:pixelsize=11:antialias=true:hinting=true"
                       -- Cpu usage in percent
                     , Run Cpu ["-t", " <fc=#fff><fn=1>\xf108  </fn></fc><fc=#ecbe7b><total>%</fc>","-H","50","--high","darkred"] 20
                       -- Ram used number and percent
-                    , Run Memory ["-t", "<fc=#fff><fn=1>\xe799 </fn></fc> <fc=#ff6c6b><used>M (<usedratio>%)</fc>"] 20
+                    , Run Memory ["-t", "<fc=#fff><fn=2>\xe799 </fn></fc> <fc=#ff6c6b><used>M (<usedratio>%)</fc>"] 20
                       -- Disk space free
                     , Run DiskU [("/", "<fc=#fff><fn=1>\xf0c7 </fn></fc><fc=#51afef> <free> free</fc>")] [] 60
 
@@ -37,7 +37,7 @@ Config { font    = "Share Tech Mono:pixelsize=11:antialias=true:hinting=true"
                     , Run Alsa "default" "Capture" ["-t", "<fn=1><status></fn><fc=#d6ae11><volume>% </fc>", "--", "-O", "\xf130 ", "-o", "\xf131 ", "-C", "#FFF"]
                       
                     -- Run music player daemon
-                    , Run Mpris2 "cmus" ["-t", "<fc=#FFF><fn=1>\xf001 </fn></fc> <artist> - <title>"] 30
+                    , Run Mpris2 "audacious" ["-t", "<fc=#FFF><fn=1>\xf001 </fn></fc> <artist> - <title>"] 30
                       
                       -- Runs custom script to check for pacman updates.
                       -- This script is in my dotfiles repo in .local/bin.
@@ -54,15 +54,15 @@ Config { font    = "Share Tech Mono:pixelsize=11:antialias=true:hinting=true"
                     , Run Battery        [ "--template" , "<fc=#fff><fn=2><acstatus></fn></fc>"
                                         , "--" -- battery specific options
                                                   -- discharging status
-                                                  , "-o"	, "\xf57f <left>% (<timeleft>)"
+                                                  , "-o"	, "\xf243  <left>% (<timeleft>)"
                                                   -- AC "on" status
-                                                  , "-O"	, "\xf587 "
+                                                  , "-O"	, "\xf241  "
                                                   -- charged status
-                                                  , "-i"	, "\xf584 "
+                                                  , "-i"	, "\xf244  "
                                         ] 50
                     , Run StdinReader
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% }{ <fc=#b3afc2>%mpris2%</fc> <fc=#666666><fn=2>|</fn></fc> %cpu% <fc=#666666><fn=2>|</fn></fc> %memory% <fc=#666666><fn=2>|</fn></fc> %disku% <fc=#666666><fn=2>|</fn></fc> %dynnetwork% <fc=#666666><fn=2>|</fn></fc> %battery% <fc=#666666><fn=2>|</fn>%alsa:default:Capture% %alsa:default:Master% </fc><fc=#666666><fn=2>|</fn></fc> %date% "
+       , template = "%StdinReader% }{ <fc=#b3afc2>%mpris2%</fc> <fc=#666666><fn=2>|</fn></fc> %cpu% <fc=#666666><fn=2>|</fn></fc> %memory% <fc=#666666><fn=2>|</fn></fc> %disku% <fc=#666666><fn=2>|</fn></fc> %dynnetwork% <fc=#666666><fn=2>|</fn></fc> %battery%<fc=#666666><fn=2>|</fn>%alsa:default:Capture% %alsa:default:Master% </fc><fc=#666666><fn=2>|</fn></fc> %date% "
        }

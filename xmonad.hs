@@ -259,7 +259,7 @@ myKeys conf@XConfig {XMonad.modMask = modm} =
       -- Restart xmonad
       ((modm, xK_KP_Subtract), spawn "xmonad --recompile; xmonad --restart"),
       -- APPLICATIONS
-      ((mod4Mask, xK_a), spawn "kitty -e cmus"),
+      ((mod4Mask, xK_a), spawn "audacious"),
       ((mod4Mask, xK_b), spawn "blueman-manager"),
       ((mod4Mask, xK_c), spawn "code"),
       ((mod4Mask, xK_d), spawn "discord"),
