@@ -34,11 +34,10 @@ Config { font    = "Share Tech Mono:pixelsize=11:antialias=true:hinting=true"
                     , Run Alsa "default" "Master" ["-t", "<fn=2><status></fn><fc=#d6ae11><volume>%</fc>", "--", "-O", "", "-o", "\xfc5d ", "-h", "\xfa7d ", "-m", "\xfa7f ", "-l", "\xfa7e ", "-L", "12", "-C", "#FFF"]
 
                     -- ALSA for SOURCE VOLUME (Mic)
-                    , Run Alsa "default" "Capture" ["-t", "<fn=1><status></fn><fc=#d6ae11><volume>% </fc>", "--", "-O", "\xf130 ", "-o", "\xf131 ", "-C", "#FFF"]
+                    , Run Alsa "default" "Capture" ["-t", "<fn=1><status></fn><fc=#d6ae11><volume>%</fc>", "--", "-O", "\xf130 ", "-o", "\xf131 ", "-C", "#FFF"]
                       
                     -- Run music player daemon
                     , Run Mpris2 "audacious" ["-t", "<fc=#FFF><fn=1>\xf001 </fn></fc> <artist> - <title>"] 30
-                      
                       -- Runs custom script to check for pacman updates.
                       -- This script is in my dotfiles repo in .local/bin.
                     -- , Run Com "/home/dt/.local/bin/pacupdate" [] "pacupdate" 36000
