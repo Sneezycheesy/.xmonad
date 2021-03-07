@@ -227,9 +227,9 @@ myKeys conf@XConfig {XMonad.modMask = modm} =
       ((0, xF86XK_AudioLowerVolume), spawn "pactl set-sink-volume @DEFAULT_SINK@ -1%"),
       ((0, xF86XK_AudioRaiseVolume), spawn "pactl set-sink-volume @DEFAULT_SINK@ +1%"),
       -- Volume INPUT
-      ((mod4Mask, xF86XK_AudioMute), spawn $ scriptDir ++ "source_mute.sh toggle"),
-      ((mod4Mask, xF86XK_AudioLowerVolume), spawn $ scriptDir ++ "source_volume set - " ++ scriptDir),
-      ((mod4Mask, xF86XK_AudioRaiseVolume), spawn $ scriptDir ++ "source_volume set + " ++ scriptDir),
+      ((mod4Mask, xF86XK_AudioMute), spawn "pactl set-source-mute @DEFAULT_SOURCE@ toggle"),
+      ((mod4Mask, xF86XK_AudioLowerVolume), spawn "pactl set-source-volume @DEFAULT_SOURCE@ -1%"),
+      ((mod4Mask, xF86XK_AudioRaiseVolume), spawn "pactl set-source-volume @DEFAULT_SOURCE@ +1%"),
       -- Control play/pause/next/prev
       -- Global
       ((0, xF86XK_AudioPlay), spawn "playerctl -a -i firefox,google-chrome,qutebrowser play-pause"),
@@ -515,6 +515,8 @@ myManageHook =
       -- Move Steam apps to workspace 10
       className =? "steam_app_271590" --> doShift "10: Games", -- GTA5 client
       className =? "steam_app_238960" --> doShift "10: Games", -- Path of Exile client
+      className =? "steam_app_270880" --> doShift "10: Games", -- ATS client
+      className =? "steam_app_227300" --> doShift "10: Games", -- ETS2 client
       className =? "wow.exe" --> doShift "10: Games", -- WoW client
       className =? "spellbreak.exe" --> doShift "10: Games", -- Spellbreak client
       className =? "epicgameslauncher.exe" --> doShift "11: Misc", -- Epic Games Launcher
@@ -579,7 +581,7 @@ myStartupHook = do
       spawnOnce "discord --start-minimized",
       spawnOnce "telegram-desktop -startintray",
       spawnOnce "skypeforlinux",
-      spawnOnce "whatsapp-nativefier-dark; sleep 3; xdotool windowkill 31457281;",
+      -- spawnOnce "whatsapp-nativefier-dark; sleep 3; xdotool windowkill 31457281;",
       spawnOnce "nitrogen --restore",
       spawnOnce "signal-desktop --start-in-tray",
       spawnOnce "setxkbmap us -variant alt-intl &",
