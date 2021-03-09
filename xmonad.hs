@@ -513,6 +513,7 @@ myManageHook =
       className =? "lxterminal" --> doShift "12: What",
       className =? "Lxterminal" --> doShift "12: What",
       -- Move Steam apps to workspace 10
+      className =? "minecraft" --> doShift "10: Games",
       className =? "steam_app_271590" --> doShift "10: Games", -- GTA5 client
       className =? "steam_app_238960" --> doShift "10: Games", -- Path of Exile client
       className =? "steam_app_270880" --> doShift "10: Games", -- ATS client
