@@ -245,10 +245,10 @@ myKeys conf@XConfig {XMonad.modMask = modm} =
       -- Change Audio in- and outputs
       ((mod4Mask, xK_1), spawn "pactl set-default-sink \"alsa_output.pci-0000_00_14.2.analog-stereo\" && xmonad --restart"), -- Speakers (Analog port)
       ((mod4Mask, xK_2), spawn "pactl set-default-sink \"alsa_output.usb-Logitech_PRO_X_000000000000-00.analog-stereo\" && xmonad --restart"), -- Headset (USB device)
-      ((mod4Mask, xK_3), spawn "sh /usr/share/scripts/bluetooth.sh"), -- Bluetooth device (whichever is connected, not tested on multiple connections)
+      ((mod4Mask, xK_3), spawn $ "sh " ++ scriptDir ++ "bluetooth.sh sink && xmonad --restart"), -- Bluetooth device (whichever is connected, not tested on multiple connections)
       ((mod4Mask .|. controlMask, xK_1), spawn "pactl set-default-source \"alsa_input.usb-Logitech_PRO_X_000000000000-00.multichannel-input\" && xmonad --restart"), -- Input headset (USB device)
       ((mod4Mask .|. controlMask, xK_2), spawn "pactl set-default-source \"alsa_input.usb-OmniVision_Technologies__Inc._USB_Camera-B4.09.24.1-01.multichannel-input\" && xmonad --restart"), -- Input webcam (USB device)
-
+      ((mod4Mask .|. controlMask, xK_3), spawn $ "sh " ++ scriptDir ++ "bluetooth.sh source && xmonad --restart"), -- Bluetooth device (whichever is connected, not tested on multiple connections)
       -- SYSTEMTRAY FOR NETWORK STATUS
       ((modm .|. controlMask, xK_s), spawn $ "sh " ++ scriptDir ++ "stalonetray.sh"),
       -- SESSION
@@ -273,8 +273,8 @@ myKeys conf@XConfig {XMonad.modMask = modm} =
       ((mod4Mask, xK_n), spawn "gimp"),
       ((mod4Mask, xK_p), spawn "passmenu"),
       ((controlMask .|. mod4Mask, xK_p), spawn "passgen | tr -d '\n' | xclip -selection clipboard"),
-      ((mod4Mask, xK_q), spawn "qutebrowser"),
-      ((mod4Mask .|. controlMask, xK_q), spawn "qutebrowser --target private-window"),
+      ((mod4Mask, xK_q), spawn "kitty -e qutebrowser"),
+      ((mod4Mask .|. controlMask, xK_q), spawn "kitty -e qutebrowser --target private-window"),
       ((mod4Mask, xK_s), spawn "skypeforlinux"),
       ((controlMask .|. mod4Mask, xK_s), spawn "steam-native"),
       ((mod4Mask, xK_t), spawn "telegram-desktop"),
@@ -578,7 +578,6 @@ myStartupHook = do
       spawnOnce "/usr/bin/numlockx on",
       -- , spawnOnce "ferdi"
       spawnOnce "albert",
-      spawnOnce "volnoti",
       spawnOnce "discord --start-minimized",
       spawnOnce "telegram-desktop -startintray",
       spawnOnce "skypeforlinux",
