@@ -273,8 +273,8 @@ myKeys conf@XConfig {XMonad.modMask = modm} =
       ((mod4Mask, xK_n), spawn "gimp"),
       ((mod4Mask, xK_p), spawn "passmenu"),
       ((controlMask .|. mod4Mask, xK_p), spawn "passgen | tr -d '\n' | xclip -selection clipboard"),
-      ((mod4Mask, xK_q), spawn "kitty -e qutebrowser"),
-      ((mod4Mask .|. controlMask, xK_q), spawn "kitty -e qutebrowser --target private-window"),
+      ((mod4Mask, xK_q), spawn "qutebrowser"),
+      ((mod4Mask .|. controlMask, xK_q), spawn "qutebrowser --target private-window"),
       ((mod4Mask, xK_s), spawn "skypeforlinux"),
       ((controlMask .|. mod4Mask, xK_s), spawn "steam-native"),
       ((mod4Mask, xK_t), spawn "telegram-desktop"),
@@ -575,6 +575,7 @@ myStartupHook = do
     [ spawnOnce "sh /home/joshii/.screenlayout/default-amd.sh",
       spawnOnce "xdotool mousemove 960 540",
       spawnOnce "twmnd",
+      spawnOnce "alsactl store",
       spawnOnce "/usr/bin/numlockx on",
       -- , spawnOnce "ferdi"
       spawnOnce "albert",
