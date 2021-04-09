@@ -6,7 +6,7 @@ if [[ $1 == get ]]; then
 elif [[ $1 == set ]]; then
 	while read value; do
 		if [[ $2 == + ]]; then
-			if [[ $value -lt 100 ]]; then
+			if [[ $value -le 100 ]]; then
 				let "value+=1";
 				initial_volume=${value};
 				pactl set-source-volume @DEFAULT_SOURCE@ +1%;

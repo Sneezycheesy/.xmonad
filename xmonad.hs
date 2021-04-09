@@ -265,11 +265,11 @@ myKeys conf@XConfig {XMonad.modMask = modm} =
       ((mod4Mask, xK_d), spawn "discord"),
       ((mod4Mask, xK_e), spawn "kitty -e ranger"),
       ((mod4Mask, xK_f), spawn "firefox"),
-      ((mod4Mask .|. modm, xK_f), spawn "firefox --private-window"),
+      ((controlMask .|. mod4Mask, xK_f), spawn "firefox --private-window"),
       ((mod4Mask, xK_g), spawn "google-chrome-stable"),
       ((mod4Mask, xK_i), spawn "signal-desktop"),
       ((mod4Mask, xK_l), spawn "lutris"),
-      ((mod4Mask, xK_m), spawn "mailspring"),
+      ((mod4Mask, xK_m), spawn "thunderbird"),
       ((mod4Mask, xK_n), spawn "gimp"),
       ((mod4Mask, xK_p), spawn "passmenu"),
       ((controlMask .|. mod4Mask, xK_p), spawn "passgen | tr -d '\n' | xclip -selection clipboard"),
@@ -438,11 +438,11 @@ tabs =
 myTabTheme =
   def
     { fontName = myFont,
-      activeColor = "#46d9ff", --46d9ff
+      activeColor = "#313846", --46d9ff
       inactiveColor = "#313846",
       activeBorderColor = "#98be65", --98be65
       inactiveBorderColor = "",
-      activeTextColor = "#282c34",
+      activeTextColor = "#98be65",
       inactiveTextColor = "#d0d0d0",
       decoWidth = 2
     }
@@ -495,6 +495,7 @@ myLayoutHook =
 myManageHook =
   composeAll
     [ className =? "Code" --> doShift "2: Dev",
+      className =? "Eclipse" --> doShift "2: Dev",
       className =? "discord" --> doShift "4: Social",
       className =? "Skype" --> doShift "4: Social",
       className =? "ferdi" --> doShift "4: Social",
@@ -513,10 +514,11 @@ myManageHook =
       className =? "lxterminal" --> doShift "12: What",
       className =? "Lxterminal" --> doShift "12: What",
       -- Move Steam apps to workspace 10
+      className =? "osu!" --> doShift "10: Games",
       className =? "minecraft" --> doShift "10: Games",
       className =? "steam_app_271590" --> doShift "10: Games", -- GTA5 client
       className =? "steam_app_238960" --> doShift "10: Games", -- Path of Exile client
-      className =? "steam_app_270880" --> doShift "10: Games", -- ATS client
+      className =? "american truck simulator" --> doShift "10: Games", -- ATS client
       className =? "steam_app_227300" --> doShift "10: Games", -- ETS2 client
       className =? "wow.exe" --> doShift "10: Games", -- WoW client
       className =? "spellbreak.exe" --> doShift "10: Games", -- Spellbreak client
@@ -527,6 +529,7 @@ myManageHook =
 
       -- Start floating windows for finer behaviour
       -- className =? "mpv" --> doFloat,
+      className =? "American Truck Simulator" --> doFloat, -- ATS client
       className =? "wpsoffice" --> doFloat,
       className =? "lxterminal" --> doFloat,
       className =? "Lxterminal" --> doFloat,
