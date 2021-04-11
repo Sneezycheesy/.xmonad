@@ -228,6 +228,7 @@ myKeys conf@XConfig {XMonad.modMask = modm} =
       ((0, xF86XK_AudioRaiseVolume), spawn "pactl set-sink-volume @DEFAULT_SINK@ +1%"),
       -- Volume INPUT
       ((mod4Mask, xF86XK_AudioMute), spawn "pactl set-source-mute @DEFAULT_SOURCE@ toggle"),
+      ((mod4Mask .|. shiftMask .|. controlMask .|. modm, xK_period), spawn "pactl set-source-mute @DEFAULT_SOURCE@ toggle"),
       ((mod4Mask, xF86XK_AudioLowerVolume), spawn "pactl set-source-volume @DEFAULT_SOURCE@ -1%"),
       ((mod4Mask, xF86XK_AudioRaiseVolume), spawn "pactl set-source-volume @DEFAULT_SOURCE@ +1%"),
       -- Control play/pause/next/prev
@@ -263,6 +264,7 @@ myKeys conf@XConfig {XMonad.modMask = modm} =
       ((mod4Mask, xK_b), spawn "blueman-manager"),
       ((mod4Mask, xK_c), spawn "code"),
       ((mod4Mask, xK_d), spawn "discord"),
+      ((mod4Mask .|. shiftMask .|. controlMask, xK_d), spawn $ "sh " ++ scriptDir ++ "discord-deafen.sh"),
       ((mod4Mask, xK_e), spawn "kitty -e ranger"),
       ((mod4Mask, xK_f), spawn "firefox"),
       ((controlMask .|. mod4Mask, xK_f), spawn "firefox --private-window"),
@@ -514,7 +516,7 @@ myManageHook =
       className =? "lxterminal" --> doShift "12: What",
       className =? "Lxterminal" --> doShift "12: What",
       -- Move Steam apps to workspace 10
-      className =? "osu!" --> doShift "10: Games",
+      className =? "osu-lazer" --> doShift "10: Games",
       className =? "minecraft" --> doShift "10: Games",
       className =? "steam_app_271590" --> doShift "10: Games", -- GTA5 client
       className =? "steam_app_238960" --> doShift "10: Games", -- Path of Exile client
@@ -525,7 +527,7 @@ myManageHook =
       className =? "epicgameslauncher.exe" --> doShift "11: Misc", -- Epic Games Launcher
       className =? "battle.net.exe" --> doShift "11: Misc", -- Blizzard
       className =? "explorer.exe" --> doShift "11: Misc", -- Wine
-      className =? "steam" --> doShift "11: Misc", -- Steam
+      className =? "Steam" --> doShift "11: Misc", -- Steam
 
       -- Start floating windows for finer behaviour
       -- className =? "mpv" --> doFloat,
