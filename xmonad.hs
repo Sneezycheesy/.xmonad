@@ -531,7 +531,7 @@ myManageHook =
 
       -- Start floating windows for finer behaviour
       -- className =? "mpv" --> doFloat,
-      className =? "American Truck Simulator" --> doFloat, -- ATS client
+      -- className =? "American Truck Simulator" --> doFloat, -- ATS client
       className =? "wpsoffice" --> doFloat,
       className =? "lxterminal" --> doFloat,
       className =? "Lxterminal" --> doFloat,
@@ -580,7 +580,7 @@ myStartupHook = do
     [ spawnOnce "sh /home/joshii/.screenlayout/default-amd.sh",
       spawnOnce "xdotool mousemove 960 540",
       spawnOnce "twmnd",
-      spawnOnce "alsactl store",
+      -- spawnOnce "alsactl store",
       spawnOnce "/usr/bin/numlockx on",
       -- , spawnOnce "ferdi"
       spawnOnce "albert",
@@ -592,7 +592,7 @@ myStartupHook = do
       spawnOnce "signal-desktop --start-in-tray",
       spawnOnce "setxkbmap us -variant alt-intl &",
       spawnOnce "xsetroot -cursor_name left_ptr",
-      spawnOnce "mailspring -b",
+      -- spawnOnce "mailspring -b",
       spawnOnce "pass init 3DF562B19CD657FED5CA17B1F88D03D7F1D36D04 &",
       spawnOnce "xset -dpms && xset s off"
     ]
