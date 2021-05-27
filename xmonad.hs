@@ -134,9 +134,9 @@ myWorkspaces = ["1: Main", "2: Dev", "3: Dev64", "4: Social", "5: Sicial", "6: T
 
 -- Border colors for unfocused and focused windows, respectively.
 --
-myNormalBorderColor = "#903400"
+myNormalBorderColor = "#333"
 
-myFocusedBorderColor = "#ff6f00"
+myFocusedBorderColor = "#0c567b"
 
 myInactiveBorderColor = "#000"
 
@@ -282,8 +282,8 @@ myKeys conf@XConfig {XMonad.modMask = modm} =
       ((mod4Mask, xK_t), spawn "telegram-desktop"),
       ((mod4Mask, xK_u), spawn "subl"),
       ((mod4Mask, xK_v), spawn "virtualbox"),
-      ((mod4Mask, xK_w), spawn "VBoxManage startvm 'Winblows'"),
-      ((mod4Mask, xK_y), spawn "firefox --new-window https://youtube.com"),
+      ((mod4Mask, xK_w), spawn "VBoxManage startvm 'Winblows 10'"),
+      ((mod4Mask, xK_y), spawn "pycharm"),
       ((0, xK_Print), spawn "sh /usr/share/scripts/screenshot.sh select"),
       ((controlMask, xK_Print), spawn "sh /usr/share/scripts/screenshot.sh current"),
       ((mod4Mask, xK_Print), spawn "sh /usr/share/scripts/screenshot.sh full"),
@@ -371,12 +371,13 @@ mySpacing' i = spacingRaw True (Border i i i i) True (Border i i i i) True
 -- Defining a bunch of layouts, many that I don't use.
 tall =
   renamed [Replace "tall"] $
-    windowNavigation
-    --    $ addTabs shrinkText myTabTheme
-    $
-      limitWindows 12 $
-        mySpacing' 5 $
-          ResizableTall 1 (3 / 100) 0.50 []
+    smartBorders $
+      windowNavigation $
+        addTabs shrinkText myTabTheme $
+          subLayout [] (smartBorders Simplest) $
+            limitWindows 12 $
+              mySpacing 5 $
+                ResizableTall 1 (3 / 100) 0.50 []
 
 -- magnify  = renamed [Replace "magnify"]
 --            $ windowNavigation
@@ -423,7 +424,7 @@ threeRow =
       addTabs shrinkText myTabTheme $
         subLayout [] (smartBorders Simplest) $
           limitWindows 7 $
-            mySpacing' 4
+            mySpacing 4
             -- Mirror takes a layout and rotates it by 90 degrees.
             -- So we are applying Mirror to the ThreeCol layout.
             $
@@ -442,9 +443,9 @@ myTabTheme =
     { fontName = myFont,
       activeColor = "#313846", --46d9ff
       inactiveColor = "#313846",
-      activeBorderColor = "#98be65", --98be65
+      activeBorderColor = "#40c4c6", --98be65
       inactiveBorderColor = "",
-      activeTextColor = "#98be65",
+      activeTextColor = "#40c4c6",
       inactiveTextColor = "#d0d0d0",
       decoWidth = 2
     }
@@ -544,7 +545,8 @@ myManageHook =
       className =? "firefox" <&&> resource =? "Toolkit" --> doFloat,
       --, className =? "VirtualBox Machine"         --> doFloat
       resource =? "desktop_window" --> doIgnore,
-      resource =? "kdesktop" --> doIgnore
+      resource =? "kdesktop" --> doIgnore,
+      resource =? "polybar" --> doFloat
     ]
 
 ------------------------------------------------------------------------
@@ -580,7 +582,7 @@ myStartupHook = do
     [ spawnOnce "sh /home/joshii/.screenlayout/default-amd.sh",
       spawnOnce "xdotool mousemove 960 540",
       spawnOnce "twmnd",
-      -- spawnOnce "alsactl store",
+      spawnOnce "alsactl store",
       spawnOnce "/usr/bin/numlockx on",
       -- , spawnOnce "ferdi"
       spawnOnce "albert",

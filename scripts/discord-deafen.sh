@@ -14,5 +14,4 @@ else
 	xdotool key shift+control+alt+d;
 fi
 
-echo $1;
 

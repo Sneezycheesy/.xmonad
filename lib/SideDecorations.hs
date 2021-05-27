@@ -30,9 +30,9 @@ instance Eq a => DecorationStyle SideDecoration a where
 myDecoTheme :: Theme
 myDecoTheme = def
                 { fontName             = "xft:Mononoki Nerd Font:bold:size=9:antialias=true:hinting=true"
-                 , activeColor         = "#98be65" --46d9ff
+                 , activeColor         = "#2c6e84" --46d9ff
                  , inactiveColor       = "#999"
-                 , activeBorderColor   = "#98be65" --98be65
+                 , activeBorderColor   = "#2c6e84" --98be65
                  , inactiveBorderColor = "#999"
                  , activeTextColor     = "#282c34"
                  , inactiveTextColor   = "#d0d0d0"
